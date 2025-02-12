@@ -172,18 +172,28 @@
     <button onclick="calculateGPA()">حساب GPA</button>
     <h3 id="result"></h3>
     <script>
-        function calculateGPA() {
-            let rows = document.querySelectorAll("#subjects tr");
-            let totalPoints = 0, totalHours = 0;
-            rows.forEach(row => {
-                let hours = parseInt(row.cells[1].querySelector("input").value);
-                let grade = parseFloat(row.cells[2].querySelector("select").value);
-                totalPoints += hours * grade;
-                totalHours += hours;
-            });
-            let gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
-            document.getElementById("result").innerText = "المعدل التراكمي (GPA): " + gpa;
-        }
+<script>
+    function calculateGPA() {
+        let rows = document.querySelectorAll("#subjects tr");
+        let totalPoints = 0, totalHours = 0;
+        let d = 0; // Initialize d
+
+        rows.forEach(row => {
+            let hours = parseInt(row.cells[1].querySelector("input").value);
+            let grade = parseFloat(row.cells[2].querySelector("select").value);
+            totalPoints += hours * grade;
+            totalHours += hours;
+        });
+
+        let gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
+
+        // Increment d by 2.2 after calculating GPA
+        d += 2.2;
+
+        document.getElementById("result").innerText = "المعدل التراكمي (GPA): " + gpa + "\n" + "قيمة d: " + d;
+    }
+</script>
+
     </script>
 </body>
 </html>
