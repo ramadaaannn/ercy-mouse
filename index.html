@@ -167,33 +167,40 @@
                     </select>
                 </td>
             </tr>
+            <!-- إضافة المادة "d" -->
+            <tr>
+                <td>d</td>
+                <td><input type="number" value="3" min="1"></td>
+                <td>
+                    <select>
+                        <option value="4.0">A+</option>
+                        <option value="3.7">A</option>
+                        <option value="3.3">B+</option>
+                        <option value="3.0">B</option>
+                        <option value="2.7">C+</option>
+                        <option value="2.3">C</option>
+                        <option value="2.0">D</option>
+                        <option value="0">F</option>
+                    </select>
+                </td>
+            </tr>
         </tbody>
     </table>
     <button onclick="calculateGPA()">حساب GPA</button>
     <h3 id="result"></h3>
     <script>
-<script>
-    function calculateGPA() {
-        let rows = document.querySelectorAll("#subjects tr");
-        let totalPoints = 0, totalHours = 0;
-        let d = 0; // Initialize d
-
-        rows.forEach(row => {
-            let hours = parseInt(row.cells[1].querySelector("input").value);
-            let grade = parseFloat(row.cells[2].querySelector("select").value);
-            totalPoints += hours * grade;
-            totalHours += hours;
-        });
-
-        let gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
-
-        // Increment d by 2.2 after calculating GPA
-        d += 2.2;
-
-        document.getElementById("result").innerText = "المعدل التراكمي (GPA): " + gpa + "\n" + "قيمة d: " + d;
-    }
-</script>
-
+        function calculateGPA() {
+            let rows = document.querySelectorAll("#subjects tr");
+            let totalPoints = 0, totalHours = 0;
+            rows.forEach(row => {
+                let hours = parseInt(row.cells[1].querySelector("input").value);
+                let grade = parseFloat(row.cells[2].querySelector("select").value);
+                totalPoints += hours * grade;
+                totalHours += hours;
+            });
+            let gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
+            document.getElementById("result").innerText = "المعدل التراكمي (GPA): " + gpa;
+        }
     </script>
 </body>
 </html>
