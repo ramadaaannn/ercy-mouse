@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة GPA</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        button { padding: 10px; margin-top: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+  <h1>ercymouse|ramadan mohammed</h1>
+    <h2>حاسبة المعدل التراكمي (GPA)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>المادة</th>
+                <th>عدد الساعات</th>
+                <th>التقدير</th>
+                <th>إزالة</th>
+            </tr>
+        </thead>
+        <tbody id="subjects"></tbody>
+    </table>
+    <button onclick="addRow()">إضافة مادة</button>
+    <button onclick="calculateGPA()">حساب GPA</button>
+    <h3 id="result"></h3>
+
+    <script>
+        function addRow() {
+            let table = document.getElementById("subjects");
+            let row = table.insertRow();
+            row.innerHTML = `
+                <td><input type="text" placeholder="اسم المادة"></td>
+                <td><input type="number" min="1" value="3"></td>
+                <td>
+                    <select>
+                        <option value="4.0">A+</option>
+                        <option value="3.7">A</option>
+                        <option value="3.3">B+</option>
+                        <option value="3.0">B</option>
+                        <option value="2.7">C+</option>
+                        <option value="2.3">C</option>
+                        <option value="2.0">D</option>
+                        <option value="0">F</option>
+                    </select>
+                </td>
+                <td><button onclick="removeRow(this)">❌</button></td>
+            `;
+        }
+        
+        function removeRow(button) {
+            let row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function calculateGPA() {
+            let rows = document.querySelectorAll("#subjects tr");
+            let totalPoints = 0, totalHours = 0;
+
+            rows.forEach(row => {
+                let hours = parseFloat(row.cells[1].querySelector("input").value);
+                let grade = parseFloat(row.cells[2].querySelector("select").value);
+                totalPoints += hours * grade;
+                totalHours += hours;
+            });
+
+            let gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
+            document.getElementById("result").innerText = "المعدل التراكمي (GPA): " + gpa;
+        }
+    </script>
+</body>
+</html>
